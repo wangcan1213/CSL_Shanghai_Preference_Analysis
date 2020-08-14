@@ -1,0 +1,11 @@
+.idea
+backup
+*.pptx
+node_modules
+db_backup.js
+DOE_backup.json
+*.csv
+*.xls
+*.lim
+python/__pycache__/
+python/*_try.py

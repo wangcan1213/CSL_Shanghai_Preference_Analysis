@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Choice Experiment</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/main.css">
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery.cookie/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/public/js/main.js"></script>
+</head>
+<body>
+    <div class="header">
+        Virtual Choice: #{{choice_num}}
+        <div class="hide" id="experiment_id">{{experiment_id}}</div>
+        <div class="hide" id="alt_a_spec">{{alt_a_spec}}</div>
+        <div class="hide" id="alt_b_spec">{{alt_b_spec}}</div>
+        <div class="hide" id="last_choice_info">{{last_choice_ans}}</div>
+    </div>
+    <div class="contents">
+        <div class="alt_a">
+            <div class="alt_header">Alternative A</div>
+            <table>
+                <tr>
+                    <th width="40%">Attribute</th>
+                    <th>Description</th>
+                </tr>
+                {{each alt_a}}
+                    <tr>
+                        <td>{{$index}}</td>
+                        <td>{{$value}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+            <br>
+            <div class="a_submit">
+                <a id="choose_a" href="#" class="choose_button">Choose A</a>
+            </div>
+            <div class="hint">
+                <div class="last_choice" id="last_choice_A">Your Last Choice</div>
+                <div class="predicted_prob" id="predicted_prob_A_ego"></div>
+                <div class="predicted_prob" id="predicted_prob_A_pop"></div>
+            </div>
+        </div>
+        <div class="alt_b">
+            <div class="alt_header">Alternative B</div>
+            <table>
+                <tr>
+                    <th width="40%">Attribute</th>
+                    <th>Description</th>
+                </tr>
+                {{each alt_b}}
+                <tr>
+                    <td>{{$index}}</td>
+                    <td>{{$value}}</td>
+                </tr>
+                {{/each}}
+            </table>
+            <br>
+            <div class="a_submit ">
+                <a id="choose_b" href="#" class="choose_button">Choose B</a>
+            </div>
+            <div class="hint">
+                <div class="last_choice" id="last_choice_B">Your Last Choice</div>
+                <div class="predicted_prob" id="predicted_prob_B_ego">Predicted Prob = {{pb_ego}} by Ego Model</div>
+                <div class="predicted_prob" id="predicted_prob_B_pop">Predicted Prob = {{pb_pop}} by Population Model</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="foot_buttons">
+            <a href="/last" id="last" class="footer_button">Previous</a>
+            &nbsp; <span>|</span> &nbsp;
+            <a href="/estimate" id="finish" class="footer_button">Finish</a>
+            &nbsp; <span>|</span> &nbsp;
+            <a href="#" id="predict" class="footer_button">Predict</a>
+        </div>
+    </div>
+</body>
+</html>

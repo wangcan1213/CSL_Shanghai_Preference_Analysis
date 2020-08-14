@@ -1,0 +1,772 @@
+[
+    {
+        "alt_a": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 1
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 3,
+            "working_hour": 4,
+            "home_efficiency": 5,
+            "refreshment": 3,
+            "restaurants": 1
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 2,
+            "commute_dist": 2,
+            "working_day": 2,
+            "working_hour": 2,
+            "home_efficiency": 2,
+            "refreshment": 2,
+            "restaurants": 1
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 3,
+            "social_dist": 2,
+            "commute_dist": 3,
+            "working_day": 3,
+            "working_hour": 3,
+            "home_efficiency": 3,
+            "refreshment": 3,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 1,
+            "working_hour": 2,
+            "home_efficiency": 2,
+            "refreshment": 3,
+            "restaurants": 3
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 4,
+            "working_hour": 4,
+            "home_efficiency": 4,
+            "refreshment": 2,
+            "restaurants": 3
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 3,
+            "working_hour": 4,
+            "home_efficiency": 5,
+            "refreshment": 3,
+            "restaurants": 1
+        },
+        "alt_b": {
+            "mask": 3,
+            "social_dist": 2,
+            "commute_dist": 1,
+            "working_day": 2,
+            "working_hour": 4,
+            "home_efficiency": 1,
+            "refreshment": 3,
+            "restaurants": 3
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 1,
+            "social_dist": 2,
+            "commute_dist": 5,
+            "working_day": 4,
+            "working_hour": 2,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 3
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 3,
+            "working_hour": 4,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 2,
+            "commute_dist": 4,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 3,
+            "refreshment": 2,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 3,
+            "working_hour": 1,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 3
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 3,
+            "social_dist": 2,
+            "commute_dist": 1,
+            "working_day": 2,
+            "working_hour": 4,
+            "home_efficiency": 1,
+            "refreshment": 3,
+            "restaurants": 3
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 2,
+            "commute_dist": 2,
+            "working_day": 2,
+            "working_hour": 2,
+            "home_efficiency": 2,
+            "refreshment": 2,
+            "restaurants": 1
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 1,
+            "working_hour": 2,
+            "home_efficiency": 2,
+            "refreshment": 3,
+            "restaurants": 3
+        },
+        "alt_b": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 5,
+            "refreshment": 2,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 4,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 2,
+            "restaurants": 3
+        },
+        "alt_b": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 3,
+            "working_hour": 1,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 3
+        },
+        "alt_b": {
+            "mask": 3,
+            "social_dist": 2,
+            "commute_dist": 3,
+            "working_day": 3,
+            "working_hour": 3,
+            "home_efficiency": 3,
+            "refreshment": 3,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 1,
+            "social_dist": 2,
+            "commute_dist": 4,
+            "working_day": 3,
+            "working_hour": 2,
+            "home_efficiency": 4,
+            "refreshment": 3,
+            "restaurants": 1
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 5,
+            "refreshment": 2,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 4,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 2,
+            "restaurants": 3
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 4,
+            "working_hour": 4,
+            "home_efficiency": 2,
+            "refreshment": 2,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 1,
+            "working_hour": 4,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 1
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 3,
+            "working_hour": 2,
+            "home_efficiency": 1,
+            "refreshment": 2,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 3,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 4,
+            "working_hour": 1,
+            "home_efficiency": 4,
+            "refreshment": 3,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 1
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 1,
+            "working_hour": 4,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 1
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 2,
+            "working_hour": 1,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 1
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 2,
+            "working_hour": 1,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 2,
+            "working_hour": 2,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 1,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 1
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 4,
+            "working_hour": 3,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 1
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 4,
+            "working_hour": 1,
+            "home_efficiency": 4,
+            "refreshment": 3,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 3,
+            "working_hour": 2,
+            "home_efficiency": 1,
+            "refreshment": 2,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 1,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 1,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 1,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 2,
+            "commute_dist": 4,
+            "working_day": 1,
+            "working_hour": 1,
+            "home_efficiency": 3,
+            "refreshment": 2,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 3,
+            "working_hour": 3,
+            "home_efficiency": 4,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 1,
+            "social_dist": 2,
+            "commute_dist": 5,
+            "working_day": 4,
+            "working_hour": 2,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 3
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 3,
+            "working_hour": 4,
+            "home_efficiency": 2,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 4,
+            "working_hour": 3,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 1
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 2,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 2,
+            "working_hour": 2,
+            "home_efficiency": 3,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 3,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 4,
+            "working_hour": 4,
+            "home_efficiency": 4,
+            "refreshment": 2,
+            "restaurants": 3
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 4,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 1,
+            "social_dist": 2,
+            "commute_dist": 4,
+            "working_day": 3,
+            "working_hour": 2,
+            "home_efficiency": 4,
+            "refreshment": 3,
+            "restaurants": 1
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 5,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 1,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        }
+    },
+    {
+        "alt_a": {
+            "mask": 2,
+            "social_dist": 1,
+            "commute_dist": 3,
+            "working_day": 2,
+            "working_hour": 3,
+            "home_efficiency": 5,
+            "refreshment": 1,
+            "restaurants": 2
+        },
+        "alt_b": {
+            "mask": 1,
+            "social_dist": 1,
+            "commute_dist": 1,
+            "working_day": 4,
+            "working_hour": 4,
+            "home_efficiency": 2,
+            "refreshment": 2,
+            "restaurants": 2
+        }
+    }
+]
