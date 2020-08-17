@@ -11,6 +11,7 @@ import json
 from estimate_utils import *
 
 
+print('\nProcess for individual level estimation following mixed logit is running...')
 try:
     experiments = json.load(open('DOE_logit_long_form.json', 'r'))
 except:
@@ -42,10 +43,10 @@ with conn.cursor() as cur:
                 continue
             else:
                 task_id, user_id, task_hash = tasks[0]
-                print('\n\n[ok] Task is received, user_id={}, task_hash={}\n'.format(user_id, task_hash) +  '-'*40)
+                print('\n\n[ok][Individual estimation] Task is received, user_id={}, task_hash={}\n'.format(user_id, task_hash) +  '-'*40)
                 t0 = time.time()
         except Exception as e:
-            print('[error] unable to load tasks from task_tbl')
+            print('[error][Individual estimation] unable to load tasks from task_tbl')
             print(e)
             conn.rollback()
 
@@ -57,7 +58,7 @@ with conn.cursor() as cur:
             cur.execute(fetch_ans_sql)
             data = cur.fetchall()
         except Exception as e:
-            print('[error] unable to fetch choice data from mysql')
+            print('[error][Individual estimation] unable to fetch choice data from mysql')
             print(e)
             conn.rollback()
         individual_df = prepare_logit_data_df(data)
@@ -72,14 +73,13 @@ with conn.cursor() as cur:
                     mxlogit_rst_json = json.loads(mxl[0][0])
                     break
             except Exception as e:
-                print('[error] unable to fetch mixed logit model')
+                print('[error][Individual Estimation] unable to fetch mixed logit model')
                 print(e)
                 conn.rollback()
         
         rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
             'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
         individual_rst = individual_estimate(individual_df, mxlogit_rst_json, rhs_columns, num_draws=800)
-        print(individual_rst)
         individual_rst = json.dumps(individual_rst)
 
 
@@ -90,9 +90,9 @@ with conn.cursor() as cur:
             user_id, task_hash, individual_rst)
         try:
             cur.execute(send_results_sql)
-            print('[ok] Individual results for mixed Logit are sent to logit_tbl')
+            print('[ok][Individual estimation] Individual results for mixed Logit are sent to logit_tbl')
         except Exception as e:
-            print('[error] unable to send individual results for mixed logit to logit_tbl')
+            print('[error][Individual estimation] unable to send individual results for mixed logit to logit_tbl')
             print(e)
             conn.rollback()
         
@@ -102,13 +102,13 @@ with conn.cursor() as cur:
         try:
             cur.execute(remove_task_sql)
             conn.commit()
-            print('[ok] The solved task is removed')
+            print('[ok][Individual estimation] The solved task is removed')
         except Exception as e:
-            print('[error] unable to remove the solved task from task_tbl')
+            print('[error][Individual estimation] unable to remove the solved task from task_tbl')
             print(e)   
             conn.rollback()
         t1 = time.time()
-        print('Task solving time: {:4.4f} seconds\n\n'.format(t1-t0))
+        print(individual_rst, '\n', 'Task solving time: {:4.4f} seconds\n\n'.format(t1-t0))
 
 
 

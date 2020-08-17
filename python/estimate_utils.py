@@ -10,6 +10,7 @@ import pylogit as pl
 import warnings
 warnings.filterwarnings("ignore")
 
+
 def clogit_ll(b, y, X, wei=None):
     b = b.reshape(-1, 1)
     y = y.reshape(-1, 1)
@@ -97,7 +98,7 @@ def clogit(df, alts, choice_column='choice', rhs_columns=[], rh2_columns=[], wei
 
 
 
-def print_result(rst, return_str=False):
+def print_result(rst, return_str=False, print_str=True):
     para, se, t, p, var = rst['para'], rst['se'], rst['t'], rst['p'], rst['var']
     max_len = max([len(this_var) for this_var in var] + [len('variable')] ) + 1
     idx = range(len(var))
@@ -119,7 +120,8 @@ def print_result(rst, return_str=False):
             s.append('{:{}s} {:12.4f}'.format(this_var, max_len, this_para))
 
         s = '\n'.join(s)
-    print(s)
+    if print_str:
+        print(s)
     if return_str:
         return s
         
@@ -164,16 +166,8 @@ def pylogit_logit_estimate():
     print(model.get_statsmodels_summary())
     return model
 
-try:
-    experiments = json.load(open('DOE_logit_long_form.json', 'r'))
-except:
-    from get_doe_long_form import get_doe_logit_long_form, profile_to_logit_row
-    print('Generate experiments in logit long form')
-    get_doe_logit_long_form()
-    experiments = json.load(open('DOE_logit_long_form.json', 'r'))
 
-
-def pylogit_mxlogit_estimate(data, rhs_columns, random_varnames, num_draws=100):
+def pylogit_mxlogit_estimate(data, rhs_columns, random_varnames, num_draws=100, print_result=False):
     spec = OrderedDict()
     variable_names = OrderedDict()
     for var in rhs_columns:
@@ -192,7 +186,8 @@ def pylogit_mxlogit_estimate(data, rhs_columns, random_varnames, num_draws=100):
     )
     numCoef = sum([len(spec[s]) for s in spec]) + len(random_varnames)
     mixed_model.fit_mle(np.zeros(numCoef), num_draws=num_draws)
-    print(mixed_model.get_statsmodels_summary())
+    if print_result:
+        print(mixed_model.get_statsmodels_summary())
     return mixed_model
 
 
@@ -221,3 +216,12 @@ def individual_estimate(individual_data, mxlogit_rst_json, rhs_columns, num_draw
     for var in rhs_columns:
         ind_rst[var] = np.sum((coef_draws_dict[var]*coef_prob_list)) / sum_p
     return ind_rst
+
+
+try:
+    experiments = json.load(open('DOE_logit_long_form.json', 'r'))
+except:
+    from get_doe_long_form import get_doe_logit_long_form, profile_to_logit_row
+    print('Generate experiments in logit long form')
+    get_doe_logit_long_form()
+    experiments = json.load(open('DOE_logit_long_form.json', 'r'))

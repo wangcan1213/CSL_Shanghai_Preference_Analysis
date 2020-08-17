@@ -9,10 +9,11 @@ import pandas as pd
 import numpy as np
 import json
 from estimate_utils import *
+chdir(path.dirname(path.abspath(sys.argv[0])))
 
 
 
-
+print('\nProcess for population logit estimation is running...')
 conn = pymysql.connect(
     host = '127.0.0.1',
     port = 3306,
@@ -25,7 +26,8 @@ conn = pymysql.connect(
 
 with conn.cursor() as cur:
     while True:
-        print('\n\nOverall Mode Estimation at {}'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        print_str1 = '\n\nOverall Mode Estimation at {}'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        t1 = time.time()
         # get data
         fetch_ans_sql = 'select ans_id, user_id, experiment_id, answer from ans_tbl order by ans_id'
         try:
@@ -33,20 +35,18 @@ with conn.cursor() as cur:
             cur.execute(fetch_ans_sql)
             data = cur.fetchall()
         except Exception as e:
-            print('[error] unable to fetch choice data from mysql')
+            print('[error][Population logit] unable to fetch choice data from mysql')
             print(e)
             conn.rollback()
         df = prepare_logit_data_df(data)
-        df.to_csv('data.csv', index=False)
+        # df.to_csv('data.csv', index=False)
 
         # estimate model
         alts = ['A', 'B']
         rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
             'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
         logit_rst = clogit(df, alts, choice_column='choice', rhs_columns=rhs_columns, point_only=False)
-        print('Logit estimation')
-        print_result(logit_rst)
-        print('')
+        print_str2 = 'Logit estimation\n' + print_result(logit_rst, print_str=False, return_str=True) + '\n'
         logit_rst_json = {var:param for var, param in zip(logit_rst['var'], logit_rst['para'])}
         logit_rst_json['r2'] = logit_rst['r2']
         logit_rst_json = json.dumps(logit_rst_json)
@@ -58,12 +58,14 @@ with conn.cursor() as cur:
         try:
             cur.execute(send_results_sql)
             conn.commit()
-            print('[ok] Overall logit results are sent to logit_tbl')
+            print('[ok][Population logit] Overall logit results are sent to logit_tbl')
         except Exception as e:
-            print('[error] unable to send overall logit estimate results to logit_tbl')
+            print('[error][Population logit] unable to send overall logit estimate results to logit_tbl')
             print(e)
             conn.rollback()
-
+        t2 = time.time()
+        print_str3 = 'Population logit model estimation took {:4.4f} seconds'.format(t2-t1)
+        print(print_str1, '\n', print_str2, '\n', print_str3)
         time.sleep(10)
         
 
