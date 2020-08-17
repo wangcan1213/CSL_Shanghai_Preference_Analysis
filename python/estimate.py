@@ -185,7 +185,7 @@ conn = pymysql.connect(
 
 
 with conn.cursor() as cur:
-    get_task_sql = 'select task_id, user_id, task_hash from task_tbl order by task_id'
+    get_task_sql = 'select task_id, user_id, task_hash from task_tbl where model_type=1 order by task_id'
 
     while True:
         try:
@@ -243,7 +243,7 @@ with conn.cursor() as cur:
         
         # remove task from task_tbl
         # this task might be modified by js, in this case should throw no error, just do not delete
-        remove_task_sql = 'delete from task_tbl where task_hash="{}"'.format(task_hash)
+        remove_task_sql = 'delete from task_tbl where task_hash="{}" and model_type=1'.format(task_hash)
         try:
             cur.execute(remove_task_sql)
             conn.commit()

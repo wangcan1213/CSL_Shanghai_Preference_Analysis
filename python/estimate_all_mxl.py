@@ -45,22 +45,35 @@ with conn.cursor() as cur:
             'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
 
         print('')
-        mixed_mode = pylogit_mxlogit_estimate(df, rhs_columns, rhs_columns)
-        # logit_rst_json = {var:param for var, param in zip(logit_rst['var'], logit_rst['para'])}
-        # logit_rst_json['r2'] = logit_rst['r2']
-        # logit_rst_json = json.dumps(logit_rst_json)
+        mixed_model = pylogit_mxlogit_estimate(df, rhs_columns, rhs_columns)
+        mxlogit_rst_json_raw = dict(mixed_model.coefs);
+        mxlogit_rst_json = {'r2': mixed_model.rho_squared}
+        for var, value in mxlogit_rst_json_raw.items():
+            if not var.startswith('Sigma '):
+                if var in mxlogit_rst_json:
+                    mxlogit_rst_json[var]['mean'] = value
+                else:
+                    mxlogit_rst_json[var] = {'mean':value, 'std':0}
+            else:
+                real_var = var[6:]
+                if real_var in mxlogit_rst_json:
+                    mxlogit_rst_json[real_var]['std'] = np.abs(value)
+                else:
+                    print('Possible error in parsing mixed logit results: ({}: {})'.format(var, value))
+
+        mxlogit_rst_json = json.dumps(mxlogit_rst_json)
 
         # send results
-        # send_results_sql = 'insert into logit_tbl (user_id, task_hash, results) values ({}, "{}", \'{}\') on duplicate key update results=\'{}\''.format(
-        #     0, 'no_hash', logit_rst_json, logit_rst_json)
-        # try:
-        #     cur.execute(send_results_sql)
-        #     conn.commit()
-        #     print('[ok] Overall logit results are sent to logit_tbl')
-        # except Exception as e:
-        #     print('[error] unable to send overall logit estimate results to logit_tbl')
-        #     print(e)
-        #     conn.rollback()
+        send_results_sql = 'insert into logit_tbl (user_id, task_hash, model_type, results) values ({}, "{}", 2, \'{}\') on duplicate key update results=\'{}\''.format(
+            0, 'no_hash', mxlogit_rst_json, mxlogit_rst_json)
+        try:
+            cur.execute(send_results_sql)
+            conn.commit()
+            print('[ok] Overall logit results are sent to logit_tbl')
+        except Exception as e:
+            print('[error] unable to send overall logit estimate results to logit_tbl')
+            print(e)
+            conn.rollback()
 
         time.sleep(10)
         

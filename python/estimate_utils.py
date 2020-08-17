@@ -194,3 +194,30 @@ def pylogit_mxlogit_estimate(data, rhs_columns, random_varnames, num_draws=100):
     mixed_model.fit_mle(np.zeros(numCoef), num_draws=num_draws)
     print(mixed_model.get_statsmodels_summary())
     return mixed_model
+
+
+def logit_p_calc(data, logit_rst, varnames, nalt, choice_column='choice'):
+    X = np.asarray(data[varnames])
+    b = np.asarray([logit_rst[varname] for varname in varnames]).reshape(-1,1)
+    v = np.matmul(X, b)
+    v = v.reshape(-1, 2)
+    v  = v - v.mean(axis=1,keepdims=True)
+    v[v>700] = 700
+    exp_v = np.exp(v)
+    p = exp_v / exp_v.sum(axis=1, keepdims=True)
+    choice = np.asarray(data[choice_column]).reshape(-1,nalt)
+    p_on_chosen_alts = (p*choice).sum(axis=1)
+    return np.prod(p_on_chosen_alts)
+
+    
+
+def individual_estimate(individual_data, mxlogit_rst_json, rhs_columns, num_draws=1000):
+    coef_draws_dict, ind_rst = {}, {}
+    for var in rhs_columns:
+        coef_draws_dict[var] = np.random.normal(mxlogit_rst_json[var]['mean'], mxlogit_rst_json[var]['std'], size=num_draws)
+    coef_draws_list = [{var: coef_draws_dict[var][idx] for var in rhs_columns} for idx in range(num_draws) ]
+    coef_prob_list = [logit_p_calc(individual_data, logit_rst, rhs_columns, nalt=2, choice_column='choice') for logit_rst in coef_draws_list]
+    sum_p = np.asarray(coef_prob_list).sum()
+    for var in rhs_columns:
+        ind_rst[var] = np.sum((coef_draws_dict[var]*coef_prob_list)) / sum_p
+    return ind_rst
