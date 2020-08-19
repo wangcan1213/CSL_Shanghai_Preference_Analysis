@@ -43,7 +43,7 @@ with conn.cursor() as cur:
                 continue
             else:
                 task_id, user_id, task_hash = tasks[0]
-                print('\n\n[ok][Individual estimation] Task is received, user_id={}, task_hash={}\n'.format(user_id, task_hash) +  '-'*40)
+                print_str = '\n\n[ok][Individual estimation] Task is received, user_id={}, task_hash={}\n'.format(user_id, task_hash) +  '-'*40 + '\n'
                 t0 = time.time()
         except Exception as e:
             print('[error][Individual estimation] unable to load tasks from task_tbl')
@@ -79,18 +79,19 @@ with conn.cursor() as cur:
         
         rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
             'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
-        individual_rst = individual_estimate(individual_df, mxlogit_rst_json, rhs_columns, num_draws=800)
+        individual_rst = individual_estimate(individual_df, mxlogit_rst_json, rhs_columns, num_draws=800, seed=19880210)
         individual_rst = json.dumps(individual_rst)
+        print_str = print_str + str(individual_rst) + '\n'
 
 
 
         # send results
         # send_results_sql = 'insert into logit_tbl (user_id, task_hash, results) values (%s, %s, %s)'
-        send_results_sql = 'insert into logit_tbl (user_id, model_type, task_hash, results) values ({}, 2, "{}", \'{}\')'.format(
+        send_results_sql = 'insert into logit_tbl (user_id, task_hash, results, model_type) values ({}, "{}", \'{}\', 2)'.format(
             user_id, task_hash, individual_rst)
         try:
             cur.execute(send_results_sql)
-            print('[ok][Individual estimation] Individual results for mixed Logit are sent to logit_tbl')
+            print_str += '[ok][Individual estimation] Individual results for mixed Logit are sent to logit_tbl' + '\n'
         except Exception as e:
             print('[error][Individual estimation] unable to send individual results for mixed logit to logit_tbl')
             print(e)
@@ -102,13 +103,14 @@ with conn.cursor() as cur:
         try:
             cur.execute(remove_task_sql)
             conn.commit()
-            print('[ok][Individual estimation] The solved task is removed')
+            print_str += '[ok][Individual estimation] The solved task is removed' + '\n'
         except Exception as e:
             print('[error][Individual estimation] unable to remove the solved task from task_tbl')
             print(e)   
             conn.rollback()
         t1 = time.time()
-        print(individual_rst, '\n', 'Task solving time: {:4.4f} seconds\n\n'.format(t1-t0))
+        print_str =  print_str + 'Individual estimation task solved, solving time: {:4.4f} seconds\n\n'.format(t1-t0) + '\n\n'
+        print(print_str)
 
 
 

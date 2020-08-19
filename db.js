@@ -74,21 +74,32 @@ exports.getUserID = function(sid, callback) {
 
 exports.sendEgoTask = function(user_id, hash, callback) {
     let sql = 'INSERT INTO `task_tbl` SET ? ON DUPLICATE KEY UPDATE task_hash=?';
-    connection.query(sql, [{user_id:user_id, task_hash:hash}, hash],
-        function (error, results) {
-                if (error) {
-                    return callback(error);
-                }
-                callback(null, results);
-    })
+    p1 = new Promise(resolve => {
+        connection.query(sql, [{user_id:user_id, task_hash:hash, model_type:1}, hash], function (error, results) {
+            if (error) {
+                return callback(error);
+            }
+            resolve();
+        })
+    });
+    p2 = new Promise(resolve => {
+        connection.query(sql, [{user_id:user_id, task_hash:hash, model_type:2}, hash], function (error, results) {
+            if (error) {
+                return callback(error);
+            }
+            resolve();
+        })
+    });
+    p1.then(() => {return p2;})
+        .then(() => {callback(null);})
 }
 
-exports.getLogitModel = function (user_id, task_hash, callback) {
-    let sql = 'SELECT task_hash, results FROM `logit_tbl` WHERE user_id=? ORDER BY model_id DESC';
-    // let sql = 'SELECT results FROM `logit_tbl` WHERE user_id=' + user_id;
+exports.getLogitModel = function (user_id, task_hash, model_type, callback) {
+    let sql = 'SELECT task_hash, results FROM `logit_tbl` WHERE user_id=? AND model_type=? ORDER BY model_id DESC';
+    // let sql = 'SELECT results FROM `logit_tbl` WHERE user_id=' + user_id + ' AND model_type=1';
     let promise_query = function (user_id) {
         return new Promise(resolve => {
-            connection.query(sql, [user_id],function (error, results) {
+            connection.query(sql, [user_id, model_type],function (error, results) {
                 if (error) {return callback(error);}
                 resolve(results);
             })

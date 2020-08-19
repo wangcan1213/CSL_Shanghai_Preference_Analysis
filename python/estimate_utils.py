@@ -167,7 +167,7 @@ def pylogit_logit_estimate():
     return model
 
 
-def pylogit_mxlogit_estimate(data, rhs_columns, random_varnames, num_draws=100, print_result=False):
+def pylogit_mxlogit_estimate(data, rhs_columns, random_varnames, num_draws=100, seed=None, print_result=False):
     spec = OrderedDict()
     variable_names = OrderedDict()
     for var in rhs_columns:
@@ -185,7 +185,10 @@ def pylogit_mxlogit_estimate(data, rhs_columns, random_varnames, num_draws=100, 
                     mixing_vars = random_varnames
     )
     numCoef = sum([len(spec[s]) for s in spec]) + len(random_varnames)
-    mixed_model.fit_mle(np.zeros(numCoef), num_draws=num_draws)
+    if seed:
+        mixed_model.fit_mle(np.zeros(numCoef), num_draws=num_draws, seed=seed)
+    else:
+        mixed_model.fit_mle(np.zeros(numCoef), num_draws=num_draws)
     if print_result:
         print(mixed_model.get_statsmodels_summary())
     return mixed_model
@@ -206,8 +209,10 @@ def logit_p_calc(data, logit_rst, varnames, nalt, choice_column='choice'):
 
     
 
-def individual_estimate(individual_data, mxlogit_rst_json, rhs_columns, num_draws=1000):
+def individual_estimate(individual_data, mxlogit_rst_json, rhs_columns, num_draws=1000, seed=None):
     coef_draws_dict, ind_rst = {}, {}
+    if seed:
+        np.random.seed(seed)
     for var in rhs_columns:
         coef_draws_dict[var] = np.random.normal(mxlogit_rst_json[var]['mean'], mxlogit_rst_json[var]['std'], size=num_draws)
     coef_draws_list = [{var: coef_draws_dict[var][idx] for var in rhs_columns} for idx in range(num_draws) ]

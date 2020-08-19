@@ -25,7 +25,7 @@ conn = pymysql.connect(
 
 with conn.cursor() as cur:
     while True:
-        print_str1 = '\n\nMixed Logit Model Estimation at {}\n'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        print_str = '\n\nMixed Logit Model Estimation at {}\n'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + '\n'
         t1 = time.time()
         # get data
         fetch_ans_sql = 'select ans_id, user_id, experiment_id, answer from ans_tbl order by ans_id'
@@ -45,8 +45,8 @@ with conn.cursor() as cur:
         rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
             'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
 
-        mixed_model = pylogit_mxlogit_estimate(df, rhs_columns, rhs_columns)
-        print_str2 = mixed_model.get_statsmodels_summary()
+        mixed_model = pylogit_mxlogit_estimate(df, rhs_columns, rhs_columns, seed=19880210)
+        print_str = print_str + str(mixed_model.get_statsmodels_summary()) + '\n'
         mxlogit_rst_json_raw = dict(mixed_model.coefs);
         mxlogit_rst_json = {'r2': mixed_model.rho_squared}
         for var, value in mxlogit_rst_json_raw.items():
@@ -65,20 +65,20 @@ with conn.cursor() as cur:
         mxlogit_rst_json = json.dumps(mxlogit_rst_json)
 
         # send results
-        send_results_sql = 'insert into logit_tbl (user_id, task_hash, model_type, results) values (0, "{}", 2, \'{}\') on duplicate key update results=\'{}\''.format(
+        send_results_sql = 'insert into logit_tbl (user_id, task_hash, results, model_type) values (0, "{}", \'{}\', 2) on duplicate key update results=\'{}\''.format(
             'no_hash', mxlogit_rst_json, mxlogit_rst_json)
         try:
             cur.execute(send_results_sql)
             conn.commit()
-            print('[ok][Mixed logit] Overall logit results are sent to logit_tbl')
+            print_str += '[ok][Mixed logit] Overall logit results are sent to logit_tbl' + '\n'
         except Exception as e:
             print('[error][Mixed logit] unable to send overall logit estimate results to logit_tbl')
             print(e)
             conn.rollback()
 
         t2 = time.time()
-        print_str3 = 'Mixed logit model estimation took {:4.4f} seconds'.format(t2-t1)
-        print(print_str1, '\n', print_str2, '\n', print_str3)
+        print_str = print_str + 'Mixed logit model estimation took {:4.4f} seconds'.format(t2-t1) + '\n\n'
+        print(print_str)
         time.sleep(10)
         
 

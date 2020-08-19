@@ -30,7 +30,7 @@ $(function () {
 
     var viewBox_width = 2100,
         viewBox_height= 800,
-        margin = margin = {top: 50, right: 50, bottom: 50, left: 70},
+        margin = {top: 50, right: 50, bottom: 50, left: 70},
         width = viewBox_width - margin.left - margin.right,
         height = viewBox_height - margin.top - margin.bottom;
 
@@ -142,14 +142,29 @@ $(function () {
 
 // redirect
 $(function () {
-    $('#change_model_type').click(function () {
-        if (window.location.pathname === '/chart-ego') {
+    $('#change_model_type_1').click(function () {
+        if ($('#change_model_type_1').text() === 'Switch to Mean Population Preference') {
             window.location.href = "/chart-population";
-        } else if (window.location.pathname === '/chart-population') {
+        } else if ($('#change_model_type_1').text() === 'Switch to Your Preference') {
             window.location.href = "/chart-ego";
+        } else if ($('#change_model_type_1').text() === 'Switch to Preference Diversity') {
+            window.location.href = "/mxlogit";
         }
     })
 })
+
+$(function () {
+    $('#change_model_type_2').click(function () {
+        if ($('#change_model_type_2').text() === 'Switch to Mean Population Preference') {
+            window.location.href = "/chart-population";
+        } else if ($('#change_model_type_2').text() === 'Switch to Your Preference') {
+            window.location.href = "/chart-ego";
+        } else if ($('#change_model_type_2').text() === 'Switch to Preference Diversity') {
+            window.location.href = "/mxlogit";
+        }
+    })
+})
+
 
 function wrap(text, width) {
     text.each(function() {

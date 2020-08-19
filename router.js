@@ -125,7 +125,7 @@ router.get('/chart-ego', function (req, res) {
     })
     let get_logit_model = function (user_id) {
         return new Promise(resolve => {
-            DB.getLogitModel(user_id, task_hash,function (error, logit_results) {
+            DB.getLogitModel(user_id, task_hash,1,function (error, logit_results) {
                 if (error) {
                     return res.send('Server Error\n' + error);
                 }
@@ -141,17 +141,17 @@ router.get('/chart-ego', function (req, res) {
             return res.render('chart.html',
                 {
                     data: logit_results,
-                    model_type: 'Ego',
-                    alt_model_type: 'Population'
+                    model_type: 'Your Preference',
+                    alt_model_type_1: 'Mean Population Preference',
+                    alt_model_type_2: 'Preference Diversity'
                 });
         })
 })
 
 router.get('/chart-population', function (req, res) {
-    let task_hash = 'no_hash';
     let get_overall_logit_model = function () {
         return new Promise(resolve => {
-            DB.getLogitModel(0, task_hash,function (error, logit_results) {
+            DB.getLogitModel(0, 'no_hash',1,function (error, logit_results) {
                 if (error) {
                     return res.send('Server Error\n' + error);
                 }
@@ -166,13 +166,66 @@ router.get('/chart-population', function (req, res) {
             return res.render('chart.html',
                 {
                     data: logit_results,
-                    model_type: 'Population',
-                    alt_model_type: 'Ego'
+                    model_type: 'Mean Population Preference',
+                    alt_model_type_1: 'Your Preference',
+                    alt_model_type_2: 'Preference Diversity'
                 });
         })
 })
 
-router.post('/predict', function (req, res) {
+router.get('/mxlogit', function (req, res) {
+    let task_hash = req.cookies.task_hash || 'no_hash';
+    let promise_get_user_id = new Promise(resolve => {
+        if (req.cookies.user_id) {
+            resolve(req.cookies.user_id);
+        } else {
+            DB.getUserID(req.cookies.sid, function (error, user_id) {
+                if (error) {
+                    return res.send('Server Error\n' + error);
+                }
+                resolve(user_id);
+            })
+        }
+    })
+
+    let get_individual_params = function (user_id) {
+        return new Promise(resolve => {
+            DB.getLogitModel(user_id, task_hash, 2, function (error, individual_params) {
+                if (error) {
+                    return res.send('Server Error\n' + error);
+                }
+                resolve(individual_params)
+            })
+        })
+    }
+
+    let get_mxlogit_model = function (individual_params) {
+        return new Promise(resolve => {
+            DB.getLogitModel(0,'no_hash', 2,function (error, mxlogit_results) {
+                if (error) {
+                    return res.send('Server Error\n' + error);
+                }
+                resolve({
+                        mxlogit_results: mxlogit_results,
+                        individual_params: individual_params
+                });
+            })
+        })
+    }
+
+    promise_get_user_id
+        .then(user_id => get_individual_params(user_id))
+        .then(individual_params => get_mxlogit_model(individual_params))
+        .then(results => {
+            // res.cookie('latest_mxl_estimation', JSON.stringify(mxlogit_results));
+            // res.cookie('latest_individual_params', JSON.stringify(individual_params));
+            // return res.send(JSON.stringify(results.mxlogit_results) + '\n' + JSON.stringify(results.individual_params));
+            return res.render("chart_mxl.html",
+                {
+                    mixed_logit: results.mxlogit_results,
+                    ind_params: results.individual_params,
+                })
+        })
 })
 
 

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Preference Chart</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/public/css/chart.css">
+<!--    <script type="module" src="/node_modules/popper.js/dist/popper.js"></script>-->
+<!--    <script type="module" src="/node_modules/popper.js/dist/esm//popper.js"></script>-->
+<!--    <script type="module" src="/node_modules/popper.js/dist/umd//popper.js"></script>-->
+    <script type="text/javascript" src="/node_modules/d3/dist/d3.min.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--    <script type="text/javascript" src="/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>-->
+    <script type="text/javascript" src="/public/js/chart_mxl.js"></script>
+    <style>
+        div.labels-container {
+            height: 10%;
+            text-align: center;
+            margin: auto;
+            /*background: red;*/
+        }
+        ul.labels {
+            margin: auto;
+        }
+        li.var-label {
+            margin-left: 5px;
+            margin-right: 5px;
+            /*float: left;*/
+            display: inline-block;
+            vertical-align: top;
+            list-style-type: none;
+        }
+        /*li.var-label:hover {*/
+        /*    background: #b1b1b1;*/
+        /*}*/
+
+        div.rect {
+            border: black;
+            border-width: thin;
+            border-style: solid;
+            width: 60px;
+            height: 20px;
+            opacity: 0.8;
+            margin: auto;
+        }
+        div.var-label-str {
+            width: 100px;
+        }
+        .footer {
+            height: 10%;
+        }
+        li.individual-params {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <div class="title">Estimation of Preference Diversity</div>
+    <a href="/chart-ego" id="change_model_type_1">Switch to Your Preference</a>
+    &nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;
+    <a href="/chart-population" id="change_model_type_2">Switch to Mean Population Preference</a>
+    &nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;
+    <a href="/play">Go Back to Playground</a>
+</div>
+<div class="svg-container">
+</div>
+<div class="labels-container">
+    <ul class="labels">
+        <li class="var-label" var="all" title="Click to show preference distribution for all variables">
+            <div class="rect" style="background: white;"></div>
+            <div class="var-label-str">All Preference Variables</div>
+        </li>
+    </ul>
+</div>
+<br clear=”all”/>
+<br clear=”all”/>
+
+<div id="mixlogit" style="display:none">{{mixed_logit}}</div>
+<div id="ind_params" style="display: none">{{ind_params}}</div>
+
+<div class="footer">
+    <ul class="note">
+        <div><strong style="font-size: 1.2em;">Note:</strong></div>
+<!--        <li>"Wear masks all the time" and "Wear masks when not alone" are compared with "No requirements for masks"</li>-->
+<!--        <li>"Refresh't unavailable" and "Refresh't available when you are alone" are compared with  "Refresh't available"</li>-->
+<!--        <li>"Nearby restaurants are closed" and "Nearby restaurants are to-go only" are compared with "Nearby restaurants are open"</li>-->
+        <li class="r2"></li>
+        <li class="individual-params" id="general"></li>
+        <li class="individual-params" id="yours"></li>
+    </ul>
+</div>
+</body>
+</html>

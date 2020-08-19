@@ -26,7 +26,7 @@ conn = pymysql.connect(
 
 with conn.cursor() as cur:
     while True:
-        print_str1 = '\n\nOverall Mode Estimation at {}'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        print_str = '\n\nOverall Mode Estimation at {}'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + '\n'
         t1 = time.time()
         # get data
         fetch_ans_sql = 'select ans_id, user_id, experiment_id, answer from ans_tbl order by ans_id'
@@ -46,26 +46,26 @@ with conn.cursor() as cur:
         rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
             'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
         logit_rst = clogit(df, alts, choice_column='choice', rhs_columns=rhs_columns, point_only=False)
-        print_str2 = 'Logit estimation\n' + print_result(logit_rst, print_str=False, return_str=True) + '\n'
+        print_str = print_str + 'Logit estimation\n' + print_result(logit_rst, print_str=False, return_str=True) + '\n'
         logit_rst_json = {var:param for var, param in zip(logit_rst['var'], logit_rst['para'])}
         logit_rst_json['r2'] = logit_rst['r2']
         logit_rst_json = json.dumps(logit_rst_json)
 
         # send results
         # send_results_sql = 'insert into logit_tbl (user_id, task_hash, results) values (%s, %s, %s)'
-        send_results_sql = 'insert into logit_tbl (user_id, task_hash, results) values ({}, "{}", \'{}\') on duplicate key update results=\'{}\''.format(
+        send_results_sql = 'insert into logit_tbl (user_id, task_hash, results, model_type) values ({}, "{}", \'{}\', 1) on duplicate key update results=\'{}\''.format(
             0, 'no_hash', logit_rst_json, logit_rst_json)
         try:
             cur.execute(send_results_sql)
             conn.commit()
-            print('[ok][Population logit] Overall logit results are sent to logit_tbl')
+            print_str += '[ok][Population logit] Overall logit results are sent to logit_tbl\n'
         except Exception as e:
             print('[error][Population logit] unable to send overall logit estimate results to logit_tbl')
             print(e)
             conn.rollback()
         t2 = time.time()
-        print_str3 = 'Population logit model estimation took {:4.4f} seconds'.format(t2-t1)
-        print(print_str1, '\n', print_str2, '\n', print_str3)
+        print_str =  print_str+ 'Population logit model estimation took {:4.4f} seconds'.format(t2-t1) + '\n\n'
+        print(print_str)
         time.sleep(10)
         
 

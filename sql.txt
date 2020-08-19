@@ -34,9 +34,10 @@ create table if not exists logit_tbl (
 	model_id integer not null auto_increment,
 	user_id integer not null,
 	task_hash varchar(255),
+	model_type int,
 	results json,
 	primary key (model_id),
-	unique (user_id, task_hash)
+	unique (user_id, task_hash, model_type)
 ) engine= InnoDB;
 
 
@@ -45,8 +46,9 @@ create table if not exists task_tbl (
 	task_id integer not null auto_increment,
 	user_id integer not null,
 	task_hash varchar(255),
+	model_type int,
 	primary key (task_id),
-	unique (user_id),
+	unique (user_id, model_type),
 	constraint foreign key (user_id) references user_tbl (user_id)
 	on delete cascade on update cascade
 )engine= InnoDB;
