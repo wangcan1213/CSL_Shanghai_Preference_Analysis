@@ -9,3 +9,5 @@ DOE_backup.json
 *.lim
 python/__pycache__/
 python/*_try.py
+netlogo
+public/csv
