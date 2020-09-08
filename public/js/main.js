@@ -53,9 +53,10 @@ $(function () {
         let exp_id = parseInt($('#experiment_id').text());
         let alt_a_spec = JSON.parse($('#alt_a_spec').text());
         let alt_b_spec = JSON.parse($('#alt_b_spec').text());
-        let varnames = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day',
-            'working_hour', 'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2'];
-        let alt_specs = {'alt_a':get_logit_row(alt_a_spec), 'alt_b':get_logit_row(alt_b_spec)};
+        // let varnames = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day',
+        //     'working_hour', 'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2'];
+        let varnames = ['Move', 'Commute Distance', 'Rent', 'Large Size', 'Density', 'Income Disparity'];
+        let alt_specs = {'alt_a':get_logit_row(alt_a_spec, false), 'alt_b':get_logit_row(alt_b_spec, true)};
         if (latest_ego_estimation !== undefined) {
             latest_ego_estimation = JSON.parse(latest_ego_estimation);
             let probs_ego = logit_predict(alt_specs, latest_ego_estimation, varnames);
@@ -94,88 +95,65 @@ $(function () {
 
 })
 
-function get_logit_row(profile) {
+function get_logit_row(profile, move) {
     row_obj = {
-        'mask_1':0, 'mask_2':0,
-        'social_dist': 0,
-        'commute_dist': 0,
-        'working_day': 0,
-        'working_hour': 0,
-        'home_time': 0,
-        'refresh_1': 0, 'refresh_2':0,
-        'restaurant_1':0, 'restaurant_2':0
+        'Move':0,
+        'Commute Distance':0,
+        'Rent': 0,
+        'Large Size': 0,
+        'Density': 0,
+        'Income Disparity': 0
     }
-    if (profile['mask'] === 1){
-        row_obj['mask_1'] = 1;
-        row_obj['mask_2'] = 0;
-    } else if (profile['mask'] === 2) {
-        row_obj['mask_1'] = 0;
-        row_obj['mask_2'] = 1;
+    if (move) {
+        row_obj['Move'] = 1;
     }
 
-    if (profile['social_dist'] === 1) {
-        row_obj['social_dist'] = 1;
+    if (profile['commute'] === 1) {
+        row_obj['Commute Distance'] = 10
+    } else if (profile['commute'] === 2) {
+        row_obj['Commute Distance'] = 5
+    } else if (profile['commute'] === 3) {
+        row_obj['Commute Distance'] = 3
+    } else if (profile['commute'] === 4) {
+        row_obj['Commute Distance'] = 1
     }
 
-    if (profile['commute_dist'] === 1) {
-        row_obj['commute_dist'] = 10;
-    } else if (profile['commute_dist'] === 2) {
-        row_obj['commute_dist'] = 5;
-    } else if (profile['commute_dist'] === 3) {
-        row_obj['commute_dist'] = 3;
-    } else if (profile['commute_dist'] === 4) {
-        row_obj['commute_dist'] = 1;
-    } else if (profile['commute_dist'] === 5) {
-        row_obj['commute_dist'] = 0.09469697;
+    if (profile['size'] === 2) {
+        row_obj['Large Size'] = 1
     }
 
-    if (profile['working_day'] === 1) {
-        row_obj['working_day'] = 5;
-    } else if (profile['working_day'] === 2) {
-        row_obj['working_day'] = 4;
-    } else if (profile['working_day'] === 3) {
-        row_obj['working_day'] = 2
-    } else if (profile['working_day'] === 4) {
-        row_obj['working_day'] = 1;
+    if (profile['price'] === 1) {
+        row_obj['Rent'] = 1300
+    } else if (profile['price'] === 2) {
+        row_obj['Rent'] = 1000
+    } else if (profile['price'] === 3) {
+        row_obj['Rent'] = 750
+    } else if (profile['price'] === 4) {
+        row_obj['Rent'] = 500
     }
 
-    if (profile['working_hour'] === 1) {
-        row_obj['working_hour'] = 8;
-    } else if (profile['working_hour'] === 2) {
-        row_obj['working_hour'] = 4;
-    } else if (profile['working_hour'] === 3) {
-        row_obj['working_hour'] = 2;
-    } else if (profile['working_hour'] === 4) {
-        row_obj['working_hour'] = 1;
+    if (profile['density'] === 1) {
+        row_obj['Density'] = 10
+    } else if (profile['density'] === 2) {
+        row_obj['Density'] = 30
+    } else if (profile['density'] === 3) {
+        row_obj['Density'] = 50
+    } else if (profile['density'] === 4) {
+        row_obj['Density'] = 80
     }
 
-    if (profile['home_efficiency'] === 1) {
-        row_obj['home_time'] = 0.8;
-    } else if (profile['home_efficiency'] === 2) {
-        row_obj['home_time'] = 1;
-    } else if (profile['home_efficiency'] === 3) {
-        row_obj['home_time'] = 1.2;
-    } else if (profile['home_efficiency'] === 4) {
-        row_obj['home_time'] = 1.5;
-    } else if (profile['home_efficiency'] === 5) {
-        row_obj['home_time'] = 2;
+    if (profile['income_disparity'] === 1) {
+        row_obj['Income Disparity'] = 0.1
+    } else if (profile['income_disparity'] === 2) {
+        row_obj['Income Disparity'] = 0.25
+    } else if (profile['income_disparity'] === 3) {
+        row_obj['Income Disparity'] = 0.5
+    } else if (profile['income_disparity'] === 4) {
+        row_obj['Income Disparity'] = 0.75
+    } else if (profile['income_disparity'] === 5) {
+        row_obj['Income Disparity'] = 0.9
     }
 
-    if (profile['refreshment'] === 1) {
-        row_obj['refresh_1'] = 1;
-        row_obj['refresh_2'] = 0;
-    } else if (profile['refreshment'] === 2) {
-        row_obj['refresh_1'] = 0;
-        row_obj['refresh_2'] = 1;
-    }
-
-    if (profile['restaurants'] === 1) {
-        row_obj['restaurant_1'] = 1;
-        row_obj['restaurant_2'] = 0;
-    } else if (profile['restaurants'] === 2) {
-        row_obj['restaurant_1'] = 0;
-        row_obj['restaurant_2'] = 1;
-    }
     return row_obj;
 }
 

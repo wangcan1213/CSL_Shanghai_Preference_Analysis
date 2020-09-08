@@ -25,9 +25,9 @@
 <div class="footer">
     <ul class="note">
         <div><strong style="font-size: 1.2em;">Note:</strong></div>
-        <li>"Wear masks all the time" and "Wear masks when not alone" are compared with "No requirements for masks"</li>
-        <li>"Refresh't unavailable" and "Refresh't available when you are alone" are compared with  "Refresh't available"</li>
-        <li>"Nearby restaurants are closed" and "Nearby restaurants are to-go only" are compared with "Nearby restaurants are open"</li>
+        {{each notes}}
+            <li class="">{{$value}}</li>
+        {{/each}}
         <li class="r2"></li>
     </ul>
 </div>

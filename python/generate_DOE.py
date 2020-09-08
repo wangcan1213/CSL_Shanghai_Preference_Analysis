@@ -6,9 +6,11 @@ import json
 
 chdir(path.dirname(sys.argv[0]))
 
+
+"""
+# this is for seq DOE methods
 df = pd.read_csv('results.csv')
-varnames = ["mask", "social_dist", "commute_dist", "working_day", "working_hour",
-      "home_efficiency", "refreshment", "restaurants"]
+varnames = ["commute", "size", "price", "density", "income_disparity"]
 df = df[varnames]
       
 
@@ -37,4 +39,20 @@ for experiment_idx in range(len(basket_a)):
     results.append({'alt_a':alt_a, 'alt_b':alt_b})
 
 # print(results)
+"""
+
+# this is for sim DOE methods
+df = pd.read_csv('results_sim.csv')
+varnames = ["commute", "size", "price", "density", "income_disparity"]
+df = df[[x+'_a' for x in varnames] + [x+'_b' for x in varnames]] 
+results = []
+for idx, row in df.iterrows():
+    tmp_a, tmp_b = list(row)[0:5], list(row)[5:10]
+    alt_a, alt_b = {}, {}
+    if tmp_a != tmp_b:
+        for var_idx in range(5):
+            alt_a[varnames[var_idx]] = tmp_a[var_idx]
+            alt_b[varnames[var_idx]] = tmp_b[var_idx]
+        results.append({'alt_a':alt_a, 'alt_b':alt_b})
+
 json.dump(results, open('DOE.json', 'w'), indent=4)

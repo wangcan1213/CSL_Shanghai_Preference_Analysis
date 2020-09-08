@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'workshop',
     password: 'workshop123',
-    database: 'workshop'
+    database: 'workshop_az'
 });
 
 
@@ -121,7 +121,7 @@ exports.getLogitModel = function (user_id, task_hash, model_type, callback) {
                     }
                 }
             }
-            console.log('Estimation seems to be still on the road');
+            console.log('Estimation seems to be still on the road: user_id = ' + user_id + ', task_hash = ' + task_hash + ', model_type = ' + model_type);
         }
         final_result = JSON.parse(final_result.results);
         callback(null, final_result);

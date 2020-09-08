@@ -4,22 +4,19 @@ $(function () {
     const r2 = data_obj_raw.r2;
     delete data_obj_raw.r2;
     const varname_labels = {
-        'mask_1': 'Wear mask all the time',
-        'mask_2': 'Wear mask when not along',
-        'home_time': 'Home distraction',
-        'social_dist': 'Keep social distance',
-        'commute_dist': 'Commute distance (mile)',
-        'working_day': '#Days at workplace',
-        'working_hour': '#Hours at workplace per day',
-        'refresh_1': "Refresh't unavailable",
-        'refresh_2': "Refresh't available when you are alone",
-        'restaurant_1': 'Nearby restaurants are closed',
-        'restaurant_2': 'Nearby restaurants are to-go only'
+        'Move': 'Move (vs. Stay)',
+        'Commute Distance': 'Commute Distance (km)',
+        'Rent': 'Monthly Rent ($100)',
+        'Large Size': 'Large Size (vs. Small)',
+        'Density': 'Population Density (100 persons/ha)',
+        'Income Disparity': 'Income Disparity'
     }
     let data_obj = new Object();
     for (let key in data_obj_raw) {
         data_obj[varname_labels[key]] = data_obj_raw[key];
     };
+    data_obj['Monthly Rent ($100)'] = data_obj['Monthly Rent ($100)'] * 100;
+    data_obj['Population Density (100 persons/ha)'] = data_obj['Population Density (100 persons/ha)'] * 100;
     console.log(data_obj);
 
     const varnames = Object.keys(data_obj);
@@ -30,9 +27,23 @@ $(function () {
 
     var viewBox_width = 2100,
         viewBox_height= 800,
-        margin = {top: 50, right: 50, bottom: 50, left: 70},
+        margin = {top: 100, right: 50, bottom: 50, left: 70},
         width = viewBox_width - margin.left - margin.right,
         height = viewBox_height - margin.top - margin.bottom;
+
+    // in case that all parameters are negative, make the top margin larger
+    var all_negative = true;
+    for (let key in data_obj_raw) {
+        if (data_obj_raw[key] > 0) {
+            all_negative = false;
+            break;
+        }
+    }
+    if (all_negative) {
+        console.log("All negative");
+        margin['top'] = 180;
+    }
+
 
     var svg = d3.select('.svg-container')
         .append('svg')

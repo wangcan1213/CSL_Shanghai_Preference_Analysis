@@ -25,7 +25,7 @@ conn = pymysql.connect(
     port = 3306,
     user = 'workshop',
     password = 'workshop123',
-    db = 'workshop',
+    db = 'workshop_az',
     charset = 'utf8'
 )
 
@@ -77,8 +77,10 @@ with conn.cursor() as cur:
                 print(e)
                 conn.rollback()
         
-        rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
-            'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
+        # rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
+        #     'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
+        alts = ['Stay', 'Move']
+        rhs_columns = ['Move', 'Commute Distance', 'Rent', 'Large Size', 'Density', 'Income Disparity']
         individual_rst = individual_estimate(individual_df, mxlogit_rst_json, rhs_columns, num_draws=800, seed=19880210)
         individual_rst = json.dumps(individual_rst)
         print_str = print_str + str(individual_rst) + '\n'

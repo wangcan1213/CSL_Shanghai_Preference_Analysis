@@ -18,7 +18,7 @@ conn = pymysql.connect(
     port = 3306,
     user = 'workshop',
     password = 'workshop123',
-    db = 'workshop',
+    db = 'workshop_az',
     charset = 'utf8'
 )
 
@@ -41,9 +41,11 @@ with conn.cursor() as cur:
         # df.to_csv('data.csv', index=False)
 
         # estimate model
-        alts = ['A', 'B']
-        rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
-            'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
+        # alts = ['A', 'B']
+        # rhs_columns = ['mask_1', 'mask_2', 'social_dist', 'commute_dist', 'working_day', 'working_hour',
+        #     'home_time', 'refresh_1', 'refresh_2', 'restaurant_1', 'restaurant_2']
+        alts = ['Stay', 'Move']
+        rhs_columns = ['Move', 'Commute Distance', 'Rent', 'Large Size', 'Density', 'Income Disparity']
 
         mixed_model = pylogit_mxlogit_estimate(df, rhs_columns, rhs_columns, seed=19880210)
         print_str = print_str + str(mixed_model.get_statsmodels_summary()) + '\n'

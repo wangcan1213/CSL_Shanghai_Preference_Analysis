@@ -138,12 +138,35 @@ router.get('/chart-ego', function (req, res) {
         .then(user_id => get_logit_model(user_id))
         .then(logit_results => {
             res.cookie('latest_ego_estimation', JSON.stringify(logit_results))
+            var notes = [];
+            if (logit_results['Move'] < 0) {
+                notes.push('You are not willing to move if all other attributes keep the same.');
+                if (logit_results['Rent'] < 0) {
+                    const tmp = Math.round((logit_results['Move'] / logit_results['Rent']));
+                    notes.push('You are willing to move for a decrease of $' + tmp + ' in monthly rent (all other attributes keep the same).');
+                }
+                if (logit_results['Commute Distance'] < 0) {
+                    const tmp = Math.round((logit_results['Move'] / logit_results['Commute Distance'])*10) / 10;
+                    notes.push('You are willing to move for a decrease of ' + tmp + 'km in commute distance (all other attributes keep the same).');
+                }
+            } else {
+                notes.push('You are willing to move even though all other attributes keep the same.');
+            }
+            if (logit_results['Rent'] * logit_results['Commute Distance'] > 0) {
+                const tmp = Math.round((logit_results['Commute Distance'] / logit_results['Rent']));
+                notes.push('When comparing two new residences, you are willing to pay additional $' + tmp + ' in monthly rent for 1km decrease in commute distance.');
+            }
+            if (logit_results['Rent'] * logit_results['Large Size'] < 0) {
+                const tmp = -Math.round((logit_results['Large Size'] / logit_results['Rent']));
+                notes.push('When comparing two new residences with large and small size, you are willing to pay additional $' + tmp + ' in monthly rent for large size.');
+            }
             return res.render('chart.html',
                 {
                     data: logit_results,
                     model_type: 'Your Preference',
                     alt_model_type_1: 'Mean Population Preference',
-                    alt_model_type_2: 'Preference Diversity'
+                    alt_model_type_2: 'Preference Diversity',
+                    notes: notes
                 });
         })
 })
@@ -162,13 +185,36 @@ router.get('/chart-population', function (req, res) {
 
     get_overall_logit_model()
         .then(logit_results => {
-            res.cookie('latest_population_estimation', JSON.stringify(logit_results))
+            res.cookie('latest_population_estimation', JSON.stringify(logit_results));
+            var notes = [];
+            if (logit_results['Move'] < 0) {
+                notes.push('You are not willing to move if all other attributes keep the same.');
+                if (logit_results['Rent'] < 0) {
+                    const tmp = Math.round((logit_results['Move'] / logit_results['Rent']));
+                    notes.push('You are willing to move for a decrease of $' + tmp + ' in monthly rent (all other attributes keep the same).');
+                }
+                if (logit_results['Commute Distance'] < 0) {
+                    const tmp = Math.round((logit_results['Move'] / logit_results['Commute Distance'])*10) / 10;
+                    notes.push('You are willing to move for a decrease of ' + tmp + 'km in commute distance (all other attributes keep the same).');
+                }
+            } else {
+                notes.push('You are willing to move even though all other attributes keep the same.');
+            }
+            if (logit_results['Rent'] * logit_results['Commute Distance'] > 0) {
+                const tmp = Math.round((logit_results['Commute Distance'] / logit_results['Rent']));
+                notes.push('When comparing two new residences, you are willing to pay additional $' + tmp + ' in monthly rent for 1km decrease in commute distance.');
+            }
+            if (logit_results['Rent'] * logit_results['Large Size'] < 0) {
+                const tmp = -Math.round((logit_results['Large Size'] / logit_results['Rent']));
+                notes.push('When comparing two new residences with large and small size, you are willing to pay additional $' + tmp + ' in monthly rent for large size.');
+            }
             return res.render('chart.html',
                 {
                     data: logit_results,
                     model_type: 'Mean Population Preference',
                     alt_model_type_1: 'Your Preference',
-                    alt_model_type_2: 'Preference Diversity'
+                    alt_model_type_2: 'Preference Diversity',
+                    notes: notes
                 });
         })
 })

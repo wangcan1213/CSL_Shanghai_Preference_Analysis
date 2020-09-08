@@ -1,28 +1,23 @@
 const varname_labels = {
-    'mask_1': 'Wear mask all the time',
-    'mask_2': 'Wear mask when not along',
-    'home_time': 'Home distraction',
-    'social_dist': 'Keep social distance',
-    'commute_dist': 'Commute distance (mile)',
-    'working_day': '#Days at workplace',
-    'working_hour': '#Hours at workplace per day',
-    'refresh_1': "Refresh't unavailable",
-    'refresh_2': "Refresh't available when you are alone",
-    'restaurant_1': 'Nearby restaurants are closed',
-    'restaurant_2': 'Nearby restaurants are to-go only'
+    'Move': 'Move (vs. Stay)',
+    'Commute Distance': 'Commute Distance (km)',
+    'Rent': 'Monthly Rent ($100)',
+    'Large Size': 'Large Size (vs. Small)',
+    'Density': 'Population Density (100 persons/ha)',
+    'Income Disparity': 'Income Disparity'
 }
 const colors_raw = {
-    'mask_1': '#ffa5a5',
-    'mask_2': '#fdae61',
-    'home_time': '#717171',
-    'social_dist': '#a89f48',
-    'commute_dist': '#d441fd',
-    'working_day': '#5e58ff',
-    'working_hour': '#2efded',
-    'refresh_1': "#a14758",
-    'refresh_2': "#af7b87",
-    'restaurant_1': '#72ac1f',
-    'restaurant_2': '#bcfd61'
+    'Move': '#ffa5a5',
+    'Commute Distance': '#a14758',
+    'Rent': '#5e58ff',
+    'Large Size': '#bcfd61',
+    'Density': '#d441fd',
+    'Income Disparity': '#2efded'
+    // 'working_hour': '#2efded',
+    // 'refresh_1': "#a14758",
+    // 'refresh_2': "#af7b87",
+    // 'restaurant_1': '#72ac1f',
+    // 'restaurant_2': '#bcfd61'
 }
 const gaussianConstant = 1 / Math.sqrt(2 * Math.PI)
 
@@ -49,6 +44,11 @@ $(function () {
         colors[new_varname] = colors_raw[key];
         mxl_params[new_varname] = mxl_obj_raw[key];
         individual_parmas[new_varname] = ind_params_obj_raw[key];
+        if (new_varname === 'Monthly Rent ($100)' || new_varname === 'Population Density (100 persons/ha)') {
+            mxl_params[new_varname]['mean'] = mxl_params[new_varname]['mean'] * 100;
+            mxl_params[new_varname]['std'] = mxl_params[new_varname]['std'] * 100;
+            individual_parmas[new_varname] = individual_parmas[new_varname] * 100
+        }
         normal_points = get_normal_density_by_fixed_samples(mxl_obj_raw[key]['mean'], mxl_obj_raw[key]['std'], 1000);
         mxl_normal_density_points[new_varname] = normal_points;
         min_max[new_varname] = {
