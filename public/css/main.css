@@ -161,3 +161,11 @@ a.footer_button {
     margin: 5px;
     text-align: center;
 }
+
+.strong_string {
+    font-weight: bold;
+}
+
+.weak_string {
+    color: lightgray;
+}

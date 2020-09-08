@@ -35,6 +35,34 @@ $(function () {
     }
 })
 
+// highlight
+$(function () {
+    var alt_a_varnames = $('.alt_a .alt_varname');
+    var alt_a_values = $('.alt_a .alt_value');
+    var alt_b_varnames = $('.alt_b .alt_varname');
+    var alt_b_values = $('.alt_b .alt_value');
+    $('tbody, .a_submit').hover(function () {
+        $.each(alt_a_varnames, function (index, alt_a_varname) {
+            alt_a_varname = $(alt_a_varname);
+            const alt_a_value = $(alt_a_values[index]);
+            const alt_b_varname = $(alt_b_varnames[index]);
+            const alt_b_value = $(alt_b_values[index]);
+            if ((alt_a_varname.text() === alt_b_varname.text()) && (alt_a_value.text() === alt_b_value.text())) {
+                alt_a_varname.toggleClass('weak_string');
+                alt_b_varname.toggleClass('weak_string');
+                alt_a_value.toggleClass('weak_string');
+                alt_b_value.toggleClass('weak_string');
+            } else {
+                alt_a_varname.toggleClass('strong_string');
+                alt_b_varname.toggleClass('strong_string');
+                alt_a_value.toggleClass('strong_string');
+                alt_b_value.toggleClass('strong_string');
+            }
+        })
+    })
+
+})
+
 // predict
 $(function () {
     $('#predict').click(function () {
