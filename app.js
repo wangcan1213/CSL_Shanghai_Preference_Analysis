@@ -25,6 +25,9 @@ app.use(cookieParser());
 
 app.use(router);
 
-app.listen(1602, function () {
-    console.log("Seriver is running at port 1602");
+var server = app.listen(1608, '0.0.0.0', function () {
+    console.log("Seriver is running at port 1608");
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("Adress: http://%s:%s", host, port);
 })

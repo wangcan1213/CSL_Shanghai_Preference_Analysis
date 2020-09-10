@@ -5,9 +5,53 @@
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/public/css/main.css">
     <title>Virtual Choice Experiments for Home Location Choice</title>
+    <style>
+        .author {
+            margin: auto;
+            text-align: center;
+            transform:translateY(-180%);
+            font-size: 1.2rem;
+        }
+        .start {
+            transform:translateY(120%);
+        }
+        .ins {
+            margin: 8px auto;
+            width: 72%;
+            font-size: 0.95rem;
+            
+        }
+    </style>
 </head>
 <body>
 <h1>Virtual Choice Experiments for Home Location Choice</h1>
+<div class="author">Author: Can Wang (王灿)</div>
+<div class="ins">
+    <b>Instruction:</b> 
+</div>
+<div class="ins">
+    This is a simple interactive tool for preference analysis based on stated preference method (SP) and discrete choice models (DCM). 
+    A series of virtual experiments regarding home location choice would be given to participants. In each choice situation, a participant
+    will compare between two alternatives, the left one is supposed to be his/her current residence, and the right one is a new residence. 
+    Both of them are described by 5 attributes, namely commute distance, size, monthly rent, population density of the community, 
+    and income structure of the community. participants are encouraged to do as many experiments as possible, but they can stop at any time 
+    by clicking "Finish" button on the bottom to run the preference analysis.
+</div>
+<div class="ins">
+    The preference analysis is implemented by DCM with 3 options. The first option is to run a simple logit model on the participant's 
+    own data, and thus the results would be called ego model. However, please note that it would be unstable in many cases when the 
+    participant only played with a few number of experiments, one will find the coefficients are too large, and the goodness-of-fit (r2) is 
+    unrealistically closed to 1. The second option is also to run a simple logit model, but on all data. The results indicate the mean 
+    preference of the whole population. This so-called population model might be the most practical one with robustness and simplicity. The 
+    third option is to run a mixed logit model (or called random parameter model), which is much more complicated than the simple logit. The 
+    greatest advantage of this model is that each coefficient is a distribution, rather than a fixed number. In this way, the participant 
+    can check the diversity of preference among population, and learn what position his/her individual preference lays in the distribution. 
+    To better understand the results, some explanative notes are avaiable for each option. 
+</div>
+<div class="ins">
+    After the preference analysis, the participant can go back to playground of virtual experiments and check the predictions of the model 
+    on each choice situation by clicking "Predict" at the bottom.
+</div>
 <div class="start ">
     <a id="start" href="/play" class="choose_button">Start</a>
 </div>
