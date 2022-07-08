@@ -2,7 +2,8 @@ from multiprocessing import Process
 import subprocess
 from os import path, chdir
 import sys
-chdir(path.dirname(path.abspath(sys.argv[0])) + '/python')
+# chdir(path.dirname(path.abspath(sys.argv[0])) + '/python')
+chdir(path.dirname(path.abspath(sys.argv[0])))
 
 def new_process(py_name):
     subprocess.call(['python', py_name+'.py'])
