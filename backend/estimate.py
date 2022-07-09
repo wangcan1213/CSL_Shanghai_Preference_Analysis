@@ -14,7 +14,7 @@ chdir(path.dirname(path.abspath(sys.argv[0])))
 
 print('\nProccess for ego logit estimation is running...')
 conn = pymysql.connect(
-    host = 'sp_mysql',
+    host = 'sp-db',
     port = 3306,
     user = 'workshop',
     password = 'workshop123',
