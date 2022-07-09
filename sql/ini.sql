@@ -1,15 +1,5 @@
-mysql:
-
-select host, user, authentication_string from mysql.user;
-
-cretae user "workshop"@"%" identified by "workshop123";
-
-grant all on *.* to 'workshop'@'%';
-ALTER USER 'workshop'@'%' IDENTIFIED WITH mysql_native_password BY 'workshop123';
-
-create database workshop;
-
-select database();
+ALTER USER 'workshop' IDENTIFIED WITH mysql_native_password BY 'workshop123';
+flush privileges;
 
 create table if not exists user_tbl (
 	user_id integer not null auto_increment,
@@ -53,9 +43,3 @@ create table if not exists task_tbl (
 	on delete cascade on update cascade
 )engine= InnoDB;
 
-
-
-drop table ans_tbl;
-drop table task_tbl;
-drop table logit_tbl;
-drop table user_tbl;
