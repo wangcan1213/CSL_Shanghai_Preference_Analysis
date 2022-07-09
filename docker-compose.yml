@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  sp-db:
+    image: mysql:8-debian
+    restart: always
+    ports:
+    - 8055:3306
+    environment:
+      MYSQL_DATABASE: workshop_az
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: workshop
+      MYSQL_PASSWORD: workshop123
+    volumes:
+    - ./sql:/docker-entrypoint-initdb.d
+
+  sp-frontend:
+    build: ./frontend
+    restart: always
+    command: bash -c 'while !</dev/tcp/sp-db/3306; do sleep 1; done; node app.js'
+    ports:
+    - 1608:1608
+    depends_on:
+    - sp-db
+    
+  sp-backend:
+    build: ./backend
+    restart: always
+    command: bash -c 'while !</dev/tcp/sp-db/3306; do sleep 1; done; python backend.py'
+    depends_on:
+    - sp-db
