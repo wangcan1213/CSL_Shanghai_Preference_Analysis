@@ -10,6 +10,12 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+// to avoid "MySQL Error: Connection lost. The server closed the connection" issue
+// https://stackoverflow.com/questions/20210522/nodejs-mysql-error-connection-lost-the-server-closed-the-connection
+setInterval(function () {
+    connection.query('SELECT 1');
+}, 5000);
+
 exports.addAns = function (sid, experiment_id, ans, callback) {
     // get user_id by either select from user_tbl or insert a new user to user_tbl;
     let get_user_id = function () {
