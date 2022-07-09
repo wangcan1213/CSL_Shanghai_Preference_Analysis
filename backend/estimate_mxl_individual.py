@@ -21,7 +21,7 @@ except:
     experiments = json.load(open('DOE_logit_long_form.json', 'r'))
 
 conn = pymysql.connect(
-    host = '127.0.0.1',
+    host = 'sp-db',
     port = 3306,
     user = 'workshop',
     password = 'workshop123',

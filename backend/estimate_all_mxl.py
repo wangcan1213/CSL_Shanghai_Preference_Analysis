@@ -14,7 +14,7 @@ from estimate_utils import *
 
 print('\nProcess for mixed logit estimation is running...')
 conn = pymysql.connect(
-    host = '127.0.0.1',
+    host = 'sp-db',
     port = 3306,
     user = 'workshop',
     password = 'workshop123',
