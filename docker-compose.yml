@@ -5,7 +5,7 @@ services:
     image: mysql:8-debian
     restart: always
     ports:
-    - 8055:3306
+    - 8059:3306
     environment:
       MYSQL_DATABASE: workshop_az
       MYSQL_ROOT_PASSWORD: root
@@ -19,7 +19,7 @@ services:
     restart: always
     command: bash -c 'while !</dev/tcp/sp-db/3306; do sleep 1; done; node app.js'
     ports:
-    - 1608:1608
+    - 8058:1608
     depends_on:
     - sp-db
     
