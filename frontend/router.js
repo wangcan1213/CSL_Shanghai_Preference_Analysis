@@ -140,32 +140,32 @@ router.get('/chart-ego', function (req, res) {
             res.cookie('latest_ego_estimation', JSON.stringify(logit_results))
             var notes = [];
             if (logit_results['Move'] < 0) {
-                notes.push('You are not willing to move if all other attributes keep the same.');
+                notes.push('当其他属性保持不变时，你不愿意搬家。');
                 if (logit_results['Rent'] < 0) {
                     const tmp = Math.round((logit_results['Move'] / logit_results['Rent']));
-                    notes.push('You are willing to move for a decrease of $' + tmp + ' in monthly rent (all other attributes keep the same).');
+                    notes.push('当其他属性保持不变时，你愿意为了月租金减少' + tmp + '元而搬家。');
                 }
                 if (logit_results['Commute Distance'] < 0) {
                     const tmp = Math.round((logit_results['Move'] / logit_results['Commute Distance'])*10) / 10;
-                    notes.push('You are willing to move for a decrease of ' + tmp + 'km in commute distance (all other attributes keep the same).');
+                    notes.push('当其他属性保持不变时，你愿意为通勤距离距离减少' + tmp + 'km而搬家。');
                 }
             } else {
-                notes.push('You are willing to move even though all other attributes keep the same.');
+                notes.push('即使其他属性保持不变，你也乐于搬家。');
             }
             if (logit_results['Rent'] * logit_results['Commute Distance'] > 0) {
                 const tmp = Math.round((logit_results['Commute Distance'] / logit_results['Rent']));
-                notes.push('When comparing two new residences, you are willing to pay additional $' + tmp + ' in monthly rent for 1km decrease in commute distance.');
+                notes.push('当比较两个新的住宅时, 你愿意为通勤距离减少1km而多支付' + tmp + '元的月租金。');
             }
             if (logit_results['Rent'] * logit_results['Large Size'] < 0) {
                 const tmp = -Math.round((logit_results['Large Size'] / logit_results['Rent']));
-                notes.push('When comparing two new residences with large and small size, you are willing to pay additional $' + tmp + ' in monthly rent for large size.');
+                notes.push('当比较一大一小两个新住宅时，你愿意为大房间多支付' + tmp + '元的月租金。');
             }
             return res.render('chart.html',
                 {
                     data: logit_results,
-                    model_type: 'Your Preference',
-                    alt_model_type_1: 'Mean Population Preference',
-                    alt_model_type_2: 'Preference Diversity',
+                    model_type: '你的个人偏好',
+                    alt_model_type_1: '集体的平均偏好',
+                    alt_model_type_2: '偏好多样性',
                     notes: notes
                 });
         })
@@ -188,32 +188,32 @@ router.get('/chart-population', function (req, res) {
             res.cookie('latest_population_estimation', JSON.stringify(logit_results));
             var notes = [];
             if (logit_results['Move'] < 0) {
-                notes.push('You are not willing to move if all other attributes keep the same.');
+                notes.push('当其他属性保持不变时，你不愿意搬家。');
                 if (logit_results['Rent'] < 0) {
                     const tmp = Math.round((logit_results['Move'] / logit_results['Rent']));
-                    notes.push('You are willing to move for a decrease of $' + tmp + ' in monthly rent (all other attributes keep the same).');
+                    notes.push('当其他属性保持不变时，你愿意为了月租金减少' + tmp + '元而搬家。');
                 }
                 if (logit_results['Commute Distance'] < 0) {
                     const tmp = Math.round((logit_results['Move'] / logit_results['Commute Distance'])*10) / 10;
-                    notes.push('You are willing to move for a decrease of ' + tmp + 'km in commute distance (all other attributes keep the same).');
+                    notes.push('当其他属性保持不变时，你愿意为通勤距离距离减少' + tmp + 'km而搬家。');
                 }
             } else {
-                notes.push('You are willing to move even though all other attributes keep the same.');
+                notes.push('即使其他属性保持不变，你也乐于搬家。');
             }
             if (logit_results['Rent'] * logit_results['Commute Distance'] > 0) {
                 const tmp = Math.round((logit_results['Commute Distance'] / logit_results['Rent']));
-                notes.push('When comparing two new residences, you are willing to pay additional $' + tmp + ' in monthly rent for 1km decrease in commute distance.');
+                notes.push('当比较两个新的住宅时, 你愿意为通勤距离减少1km而多支付' + tmp + '元的月租金。');
             }
             if (logit_results['Rent'] * logit_results['Large Size'] < 0) {
                 const tmp = -Math.round((logit_results['Large Size'] / logit_results['Rent']));
-                notes.push('When comparing two new residences with large and small size, you are willing to pay additional $' + tmp + ' in monthly rent for large size.');
+                notes.push('当比较一大一小两个新住宅时，你愿意为大房间多支付' + tmp + '元的月租金。');
             }
             return res.render('chart.html',
                 {
                     data: logit_results,
-                    model_type: 'Mean Population Preference',
-                    alt_model_type_1: 'Your Preference',
-                    alt_model_type_2: 'Preference Diversity',
+                    model_type: '集体的平均偏好',
+                    alt_model_type_1: '你的个人偏好',
+                    alt_model_type_2: '偏好多样性',
                     notes: notes
                 });
         })

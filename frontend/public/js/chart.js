@@ -4,19 +4,19 @@ $(function () {
     const r2 = data_obj_raw.r2;
     delete data_obj_raw.r2;
     const varname_labels = {
-        'Move': 'Move (vs. Stay)',
-        'Commute Distance': 'Commute Distance (km)',
-        'Rent': 'Monthly Rent ($100)',
-        'Large Size': 'Large Size (vs. Small)',
-        'Density': 'Population Density (100 persons/ha)',
-        'Income Disparity': 'Income Disparity'
+        'Move': '搬家',
+        'Commute Distance': '通勤距离(km)',
+        'Rent': '月租金(500元/月)',
+        'Large Size': '大房间',
+        'Density': '人口密度 (100人/ha)',
+        'Income Disparity': '低收入人口比例'
     }
     let data_obj = new Object();
     for (let key in data_obj_raw) {
         data_obj[varname_labels[key]] = data_obj_raw[key];
     };
-    data_obj['Monthly Rent ($100)'] = data_obj['Monthly Rent ($100)'] * 100;
-    data_obj['Population Density (100 persons/ha)'] = data_obj['Population Density (100 persons/ha)'] * 100;
+    data_obj['月租金(500元/月)'] = data_obj['月租金(500元/月)'] * 500;
+    data_obj['人口密度 (100人/ha)'] = data_obj['人口密度 (100人/ha)'] * 100;
     console.log(data_obj);
 
     const varnames = Object.keys(data_obj);
@@ -139,13 +139,13 @@ $(function () {
     })
 
     if (r2 >= 0.6) {
-        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, which is quite likely to be overfitted, you are suggest to play more experiments.`);
+        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, 模型很有可能过拟合, 建议你多做一些实验。`);
     } else if (r2 >= 0.2) {
-        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, which is excellent!`);
+        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, 模型的拟合优度很棒！`);
     } else if (r2 >= 0.1) {
-        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, which is OK.`);
+        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, 模型的拟合优度还不错。`);
     } else {
-        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, which is not so good.`);
+        $('li.r2').text(`McFadden's R2 = ${r2.toFixed(3)}, 模型的拟合优度不太好。`);
     }
 
 
@@ -154,11 +154,11 @@ $(function () {
 // redirect
 $(function () {
     $('#change_model_type_1').click(function () {
-        if ($('#change_model_type_1').text() === 'Switch to Mean Population Preference') {
+        if ($('#change_model_type_1').text() === '切换到集体平均偏好') {
             window.location.href = "/chart-population";
-        } else if ($('#change_model_type_1').text() === 'Switch to Your Preference') {
+        } else if ($('#change_model_type_1').text() === '切换到你的个人偏好') {
             window.location.href = "/chart-ego";
-        } else if ($('#change_model_type_1').text() === 'Switch to Preference Diversity') {
+        } else if ($('#change_model_type_1').text() === '切换到偏好多样性') {
             window.location.href = "/mxlogit";
         }
     })
@@ -166,11 +166,11 @@ $(function () {
 
 $(function () {
     $('#change_model_type_2').click(function () {
-        if ($('#change_model_type_2').text() === 'Switch to Mean Population Preference') {
+        if ($('#change_model_type_2').text() === '切换到集体平均偏好') {
             window.location.href = "/chart-population";
-        } else if ($('#change_model_type_2').text() === 'Switch to Your Preference') {
+        } else if ($('#change_model_type_2').text() === '切换到你的个人偏好') {
             window.location.href = "/chart-ego";
-        } else if ($('#change_model_type_2').text() === 'Switch to Preference Diversity') {
+        } else if ($('#change_model_type_2').text() === '切换到偏好多样性') {
             window.location.href = "/mxlogit";
         }
     })
