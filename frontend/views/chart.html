@@ -12,19 +12,19 @@
 
 <body>
 <div class="header">
-    <div class="title">Estimation of {{model_type}}</div>
-    <a href="#" id="change_model_type_1">Switch to {{alt_model_type_1}}</a>
+    <div class="title">{{model_type}}估计结果</div>
+    <a href="#" id="change_model_type_1">切换到{{alt_model_type_1}}</a>
     &nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;
-    <a href="#" id="change_model_type_2">Switch to {{alt_model_type_2}}</a>
+    <a href="#" id="change_model_type_2">切换到{{alt_model_type_2}}</a>
     &nbsp;&nbsp;&nbsp;<span>|</span>&nbsp;&nbsp;&nbsp;
-    <a href="/play">Go Back to Playground</a>
+    <a href="/play">回到选择实验场</a>
 </div>
 <div class="svg-container">
 </div>
 <div id="data" style="display:none">{{data}}</div>
 <div class="footer">
     <ul class="note">
-        <div><strong style="font-size: 1.2em;">Note:</strong></div>
+        <div><strong style="font-size: 1.2em;">注释:</strong></div>
         {{each notes}}
             <li class="">{{$value}}</li>
         {{/each}}

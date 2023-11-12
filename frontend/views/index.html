@@ -24,33 +24,26 @@
     </style>
 </head>
 <body>
-<h1>Virtual Choice Experiments for Home Location Choice</h1>
-<div class="author">Author: Can Wang (王灿)</div>
+<h1>虚拟实现：住宅位置选择</h1>
+<div class="author">苏州大学 城乡规划系 王灿</div>
 <div class="ins">
     <b>Instruction:</b> 
 </div>
 <div class="ins">
-    This is a simple interactive tool for preference analysis based on stated preference method (SP) and discrete choice models (DCM). 
-    A series of virtual experiments regarding home location choice would be given to participants. In each choice situation, a participant
-    will compare between two alternatives, the left one is supposed to be his/her current residence, and the right one is a new residence. 
-    Both of them are described by 5 attributes, namely commute distance, size, monthly rent, population density of the community, 
-    and income structure of the community. participants are encouraged to do as many experiments as possible, but they can stop at any time 
-    by clicking "Finish" button on the bottom to run the preference analysis.
+    这是一个基于叙述偏好法（stated preference, SP）和离散选择模型（discrete choice models, DCM）的简单交互式偏好分析工具。
+    参与者将进行一系列有关住宅位置选择的虚拟实验。在每个选择情境中，参与者需要比较两个选项，左边的选项假定为其当前的居住地，右边的则是新居住地。
+    这两个选项都由5个属性描述，分别是通勤距离、户型大小、月租、社区人口密度以及社区低收入人口比例。
+    我们鼓励参与者尽可能多地进行实验，但他们可以随时通过点击底部的“完成”按钮来停止回答并运行偏好分析。
 </div>
 <div class="ins">
-    The preference analysis is implemented by DCM with 3 options. The first option is to run a simple logit model on the participant's 
-    own data, and thus the results would be called ego model. However, please note that it would be unstable in many cases when the 
-    participant only played with a few number of experiments, one will find the coefficients are too large, and the goodness-of-fit (r2) is 
-    unrealistically closed to 1. The second option is also to run a simple logit model, but on all data. The results indicate the mean 
-    preference of the whole population. This so-called population model might be the most practical one with robustness and simplicity. The 
-    third option is to run a mixed logit model (or called random parameter model), which is much more complicated than the simple logit. The 
-    greatest advantage of this model is that each coefficient is a distribution, rather than a fixed number. In this way, the participant 
-    can check the diversity of preference among population, and learn what position his/her individual preference lays in the distribution. 
-    To better understand the results, some explanative notes are avaiable for each option. 
+    偏好分析是通过三个离散选择模型来实现的。第一个模型是对参与者自己的数据运行一个简单的Logit模型，因此结果被称为“个人模型”。
+    但请注意，在许多情况下，当参与者仅参与了少量实验情景时，这个模型可能会不稳定，比如说：估计结果的系数过大，拟合优度（r2）不切实际地接近1。
+    第二个模型也是运行一个简单的Logit模型，但是基于所有人的回答数据。模型结果反映了整体人群的平均偏好。这个所谓的“集体模型”应该是最实用的，具有稳健性和简洁性。
+    第三个模型是运行一个混合Logit模型（也称为随机系数模型），它比简单的Logit模型复杂得多。这个模型的最大优势是每个系数都是一个分布，而不是一个固定数字。
+    通过这种方式，参与者可以检查人群中偏好的多样性，并了解其个人偏好在分布中的位置。为了更好地理解结果，每个选项都提供了一些解释性的说明。 
 </div>
 <div class="ins">
-    After the preference analysis, the participant can go back to playground of virtual experiments and check the predictions of the model 
-    on each choice situation by clicking "Predict" at the bottom.
+    在完成偏好分析后，参与者可以返回到虚拟实验，并通过点击底部的“预测”按钮，检查模型对每个选择情况的预测结果。
 </div>
 <div class="start ">
     <a id="start" href="/play" class="choose_button">Start</a>

@@ -34,20 +34,20 @@
             </table>
             <br>
             <div class="a_submit">
-                <a id="choose_a" href="#" class="choose_button">Choose to Stay</a>
+                <a id="choose_a" href="#" class="choose_button">选择留下来</a>
             </div>
             <div class="hint">
-                <div class="last_choice" id="last_choice_A">Your Last Choice</div>
+                <div class="last_choice" id="last_choice_A">上一次选择结果</div>
                 <div class="predicted_prob" id="predicted_prob_A_ego"></div>
                 <div class="predicted_prob" id="predicted_prob_A_pop"></div>
             </div>
         </div>
         <div class="alt_b">
-            <div class="alt_header">A Potential New Residence</div>
+            <div class="alt_header">一个可能的备选住宅</div>
             <table>
                 <tr>
-                    <th width="40%">Attribute</th>
-                    <th>Description</th>
+                    <th width="40%">属性</th>
+                    <th>描述</th>
                 </tr>
                 {{each alt_b}}
                 <tr>
@@ -58,22 +58,22 @@
             </table>
             <br>
             <div class="a_submit ">
-                <a id="choose_b" href="#" class="choose_button">Choose to Move</a>
+                <a id="choose_b" href="#" class="choose_button">选择搬到这里</a>
             </div>
             <div class="hint">
-                <div class="last_choice" id="last_choice_B">Your Last Choice</div>
-                <div class="predicted_prob" id="predicted_prob_B_ego">Predicted Prob = {{pb_ego}} by Ego Model</div>
-                <div class="predicted_prob" id="predicted_prob_B_pop">Predicted Prob = {{pb_pop}} by Population Model</div>
+                <div class="last_choice" id="last_choice_B">上一次选择结果</div>
+                <div class="predicted_prob" id="predicted_prob_B_ego">个人模型的预测概率 = {{pb_ego}}</div>
+                <div class="predicted_prob" id="predicted_prob_B_pop">集体模型的预测概率 = {{pb_pop}}</div>
             </div>
         </div>
     </div>
     <div class="footer">
         <div class="foot_buttons">
-            <a href="/last" id="last" class="footer_button">Previous</a>
+            <a href="/last" id="last" class="footer_button">上一个选择情景</a>
             &nbsp; <span>|</span> &nbsp;
-            <a href="/estimate" id="finish" class="footer_button">Finish</a>
+            <a href="/estimate" id="finish" class="footer_button">完成</a>
             &nbsp; <span>|</span> &nbsp;
-            <a href="#" id="predict" class="footer_button">Predict</a>
+            <a href="#" id="predict" class="footer_button">预测</a>
         </div>
     </div>
 </body>
