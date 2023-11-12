@@ -89,9 +89,9 @@ $(function () {
             latest_ego_estimation = JSON.parse(latest_ego_estimation);
             let probs_ego = logit_predict(alt_specs, latest_ego_estimation, varnames);
             $('#predicted_prob_A_ego')
-                .text('Predicted Prob = ' + probs_ego.alt_a.toFixed(3) + ' by Ego Model').fadeIn(300);
+                .text('预测概率 = ' + probs_ego.alt_a.toFixed(3) + ' （个人模型）').fadeIn(300);
             $('#predicted_prob_B_ego')
-                .text('Predicted Prob = ' + probs_ego.alt_b.toFixed(3) + ' by Ego Model').fadeIn(300);
+                .text('预测概率 = ' + probs_ego.alt_b.toFixed(3) + ' （个人模型）').fadeIn(300);
             if (probs_ego.alt_a > probs_ego.alt_b) {
                 $('#predicted_prob_A_ego').addClass('predicted_chosen')
                 $('#predicted_prob_B_ego').removeClass('predicted_chosen')
@@ -104,10 +104,10 @@ $(function () {
             latest_population_estimation = JSON.parse(latest_population_estimation);
             let probs_population = logit_predict(alt_specs, latest_population_estimation, varnames);
             $('#predicted_prob_A_pop')
-                .text('Predicted Prob = ' + probs_population.alt_a.toFixed(3) + ' by Population Model')
+                .text('预测概率 = ' + probs_population.alt_a.toFixed(3) + ' （集体模型）')
                 .fadeIn(300);
             $('#predicted_prob_B_pop')
-                .text('Predicted Prob = ' + probs_population.alt_b.toFixed(3) + ' by Population Model')
+                .text('预测概率 = ' + probs_population.alt_b.toFixed(3) + ' （集体模型）')
                 .fadeIn(300);
             if (probs_population.alt_a > probs_population.alt_b) {
                 console.log('FUCK a');
