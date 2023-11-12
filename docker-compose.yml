@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  sp-db:
+  sp-db-cn:
     image: mysql:8-debian
     restart: always
     ports:
@@ -14,18 +14,19 @@ services:
     volumes:
     - ./sql:/docker-entrypoint-initdb.d
 
-  sp-frontend:
+  sp-frontend-cn:
     build: ./frontend
+    image: csl_shanghai_preference_analysis_sp-frontend-cn:latest
     restart: always
     command: bash -c 'while !</dev/tcp/sp-db/3306; do sleep 1; done; node app.js'
     ports:
     - 8058:1608
     depends_on:
-    - sp-db
+    - sp-db-cn
     
-  sp-backend:
+  sp-backend-cn:
     build: ./backend
     restart: always
     command: bash -c 'while !</dev/tcp/sp-db/3306; do sleep 1; done; python backend.py'
     depends_on:
-    - sp-db
+    - sp-db-cn
